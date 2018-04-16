@@ -3,63 +3,82 @@ This device is used as an attachment to the gencobot robotic arm to allow
 it to recognize colors and send it to a computer for use in additional applicaions
 
 It uses an adafruit color sensor to read the colors. It also uses an arduino which 
-reads the data from the sensor and sends it to the computer upon polling by the 
-master program. It essentially acts as the communication link between the computer
+reads the data from the sensor and sends it to the computer upon request from the 
+computer program. It essentially acts as the communication link between the computer
 and the sensor
 */
 
-#define color_detection_treshold 100
-#define polling_symbol 1
-#include "Adafruit_TCS34725.h" // adafruit color sensor library
+#include <Wire.h>
+#include "Adafruit_TCS34725.h"
 
-Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+/* Example code for the Adafruit TCS34725 breakout library */
 
+/* Connect SCL    to analog 5
+   Connect SDA    to analog 4
+   Connect VDD    to 3.3V DC
+   Connect GROUND to common ground */
+   
+/* Initialise with default values (int time = 2.4ms, gain = 1x) */
+// Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
-void setup() {
+/* Initialise with specific int time and gain values */
+Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X);
+
+void setup(void) {
   Serial.begin(9600);
-
+  
   if (tcs.begin()) {
     Serial.println("Found sensor");
   } else {
-    Serial.println("No TCS34725 found ... check your connections");
-    while (1); // halt!
+    Serial.println("check connections");
+    while (1);
   }
-
-
-
-}
-
-void loop(){
-
-  uint16_t clear, red, green, blue;
-
-  tcs.setInterrupt(false);      // turn on LED
-
-  delay(60);  // takes 50ms to read 
   
-  tcs.getRawData(&red, &green, &blue, &clear);
-
-  tcs.setInterrupt(true);  // turn off LED
-  if(Serial.available() && Serial.read()==polling_symbol/*there is a poll from the computer*/)
-  {
-  /*
-  these few lines of code are for debugging the color caliberation
-  Serial.print("C:\t"); Serial.print(clear);
-  Serial.print("\tR:\t"); Serial.print(red);
-  Serial.print("\tG:\t"); Serial.print(green);
-  Serial.print("\tB:\t"); Serial.print(blue);
-	*/
-  	if(red>color_detection_treshold)
-  		Serial.println("0"); // 0 indicates red
-
-  	else if(green > color_detection_treshold)
-  		Serial.println("1"); // 1 indicates green
-  	
-  	else if (blue > color_detection_treshold)
-  		Serial.println("2"); // 2 indicates blue
-
-  	else 
-  	 	Serial.println("3") ; // 3 indicates undefined
-
-	}
+  // Now we're ready to get readings!
 }
+
+void loop(void) {
+  uint16_t r, g, b, c, colorTemp, lux;
+  
+  tcs.getRawData(&r, &g, &b, &c);
+ // colorTemp = tcs.calculateColorTemperature(r, g, b);
+ // lux = tcs.calculateLux(r, g, b);
+  
+  
+  
+  
+  Serial.print("R: "); Serial.print(r); Serial.print(" ");
+  Serial.print("G: "); Serial.print(g); Serial.print(" ");
+  Serial.print("B: "); Serial.print(b); Serial.print(" ");
+  Serial.print("C: "); Serial.print(c); Serial.print(" ");
+  Serial.println(" ");
+
+
+
+  if(c>35000){
+    Serial.println("white");
+    }
+
+  else 
+  {
+     if(r>g+1000 && r>b+1000){
+     
+      Serial.print("red");
+     }
+
+     else if(g>r+1000 && g>b+1000)
+     {
+        Serial.print("green");
+      }
+
+     else if(b>r+1000 && b>g+1000){
+    Serial.print("blue");
+    }
+
+}
+
+
+
+}
+
+
