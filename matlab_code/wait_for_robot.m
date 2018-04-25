@@ -11,6 +11,7 @@ fprintf(robot,'STA'); % sending the command to get status
 
 while(1)
     fprintf(robot,'STA'); % sending the command to get status
+    pause(0.2);
     temp = {fscanf(robot)};
     %CONVERT INPUT TO INTEGER
     lngth = cellfun('length', temp);%Find the length of the raw reading
@@ -22,5 +23,5 @@ while(1)
         result = status;
         break;
     end
-
+status = 0;
 end
