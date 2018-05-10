@@ -6,12 +6,9 @@
 function goto_drawing_stage(robot)
      
      
-      fprintf(robot,'MVA R,2000');
-      pause(5);
+      fprintf(robot,'MVA R,2500');
+      pause(3);
       fprintf(robot,'MVA R2,-7500');
-      pause(6);
-      fprintf(robot,'MVR Z,-3100');
-      pause(5);
-
+      pause(4);
 
 end

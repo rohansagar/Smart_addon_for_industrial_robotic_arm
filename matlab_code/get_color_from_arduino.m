@@ -8,9 +8,9 @@ function color = get_color_from_arduino(arduino)
 
 %pause(2);
 %set(arduino,'Terminator','CR');
-pause(1.8);
-fprintf(arduino,'1');
 pause(1);
+fprintf(arduino,'1');
+pause(2);
 color =int8( fgets(arduino))
 
 

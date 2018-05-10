@@ -29,6 +29,13 @@ fprintf(robot,'SSP T,9000');
 pause(0.3);
 fprintf(robot,'SSP X,9000');
 pause(0.3);
+fprintf(robot,'SSP R,9000');
+pause(0.3);
+fprintf(robot,'SSP R2,9000');
+pause(0.3);
+fprintf(robot,'SSP Z,9000');
+pause(0.3);
+
 
 
 
@@ -247,6 +254,14 @@ waitReceive(b2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,2)=temp(2)-48;
 
+%
+%
+%
+%
+% the Drawing portion is implemented in the following square only
+
+
+
 fprintf(robot, 'MVA T,%d',b1(1));
 pause(0.3);
 waitReceive(b1,robot);
@@ -262,7 +277,6 @@ if(color_matrix(2,1) == 1)% If red color is detected
     % move up  a little 
     fprintf(robot, 'MVR Z,1000');
     goto_drawing_stage(robot);
-    fprintf(robot, 'MVR Z,-2000');
     pause(2);
     
 
@@ -277,17 +291,18 @@ if (color_matrix(2,1)==2) % if green color is detected
     pause(1);
     fprintf(robot, 'SAV');
     pause(1); 
-    % move up  a little 
+    % move up to avoid clearance issues 
     fprintf(robot, 'MVR Z,1000');
-    wait_for_robot(robot);
+    % this function gets the robot into a position from which it can draw
+    wait_for_robot(robot); 
     goto_drawing_stage(robot);
-    fprintf(robot,'MVR Z,-1000');
 
-    wait_for_robot(robot);
-    pause(1);
-    fprintf(robot,'MTP b');
-    pause(2);
-
+    fprintf(robot,'MTP b'); % this is the station that allows us to go to E
+    pause(6);
+    fprintf(robot, 'MVR Z,2000');
+    pause(6);
+    fprintf(robot,'MTP a');
+    pause(6);
 end
 
 fprintf(robot, 'MVA X,%d',c1(4));
