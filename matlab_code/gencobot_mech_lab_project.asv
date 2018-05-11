@@ -127,6 +127,7 @@ i4=[-16490,-7053,2755,-7160,Z];
 i5=[-16130,-7053,2755,-7160,Z];
 i6=[-15770,-7053,2755,-7160,Z];
 i7=[-15410,-7053,2755,-7160,Z];
+%_____________________________________________________________________________________________________________________________________________________
 
 
 fprintf(robot, 'MVA Z,%d',a(4));
@@ -147,44 +148,16 @@ pause(0.3);
 waitReceive(a1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,1)=temp(1)-48;
-if(color_matrix(1,1) == 1)% If red color is detected
-       
-    % set the current ocation as a station 
-    fprintf(robot, 'NTC a');
-    pause(1);
-    fprintf(robot, 'ENT 1');
-    fprintf(robot, 'SAV');
-    
-    % move up  a little 
-    fprintf(robot, 'MVR Z,1000');
-    goto_drawing_stage(robot);
 
-end
-
-if (color_matrix(1,1)==2) % if green color is detected
+%_____________________________________________________________________________________________________________________________________________________
     
-    % set the current ocation as a station 
-    fprintf(robot, 'NTC a');
-    fprintf(robot, 'ENT 1');
-    fprintf(robot, 'SAV');
-    
-    % move up  a little 
-    fprintf(robot, 'MVR Z,1000');
-    wait_for_robot(robot);
-    goto_drawing_stage(robot);
-    fprintf(robot,'MVR Z,-1000');
-    wait_for_robot(robot);
-    fprintf(robot,'MTP b');
-    pause(2);
-
-end
-    
-
 fprintf(robot, 'MVA T,%d',a2(1));
 pause(0.3);
 waitReceive(a2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,2)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',a3(1));
 pause(0.3);
@@ -192,11 +165,15 @@ waitReceive(a3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,3)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',a4(1));
 pause(0.3);
 waitReceive(a4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,4)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',a5(1));
 pause(0.3);
@@ -204,11 +181,15 @@ waitReceive(a5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',a6(1));
 pause(0.3);
 waitReceive(a6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',a7(1));
 pause(0.3);
@@ -216,13 +197,15 @@ waitReceive(a7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,7)=temp(2)-48;
 
-pause(1);
 %_________________________________________________________________________________________________________________________________________
+
 fprintf(robot,'MVA X,%d', b7(4));
 pause(0.3);
 waitReceive(b7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,7)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',b6(1));
 pause(0.3);
@@ -230,11 +213,15 @@ waitReceive(b6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,6)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',b5(1));
 pause(0.3);
 waitReceive(b5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,5)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',b4(1));
 pause(0.3);
@@ -242,11 +229,15 @@ waitReceive(b4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,4)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',b3(1));
 pause(0.3);
 waitReceive(b3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,3)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',b2(1));
 pause(0.3);
@@ -254,10 +245,29 @@ waitReceive(b2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,2)=temp(2)-48;
 
-%
-%
-%
-%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%_____________________________________________________________________________________________________________________________________________________
+
+
+
+
 % the Drawing portion is implemented in the following square only
 
 
@@ -268,42 +278,82 @@ waitReceive(b1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,1)=temp(2)-48;
 if(color_matrix(2,1) == 1)% If red color is detected
-       
-    % set the current ocation as a station 
-    fprintf(robot, 'NTC a');
-    fprintf(robot, 'ENT 1');
-    fprintf(robot, 'SAV');
-    
-    % move up  a little 
+   
+    % set the current location as a station so that we can come back to it after drawing when we want to resume scanning 
+    fprintf(robot, 'NTC a');% this command is used to start teaching a station named 'a'
+    pause(1);
+    fprintf(robot, 'ENT 1'); % a part of teaching routine
+    pause(1);
+    fprintf(robot, 'SAV'); % save the station to not volatile memory
+    pause(1); 
+    % move up to avoid clearance issues 
     fprintf(robot, 'MVR Z,1000');
+    wait_for_robot(robot); 
+
+        % this function gets the robot into a position from which it can draw
     goto_drawing_stage(robot);
-    pause(2);
-    
+% change this if you want to match the red squares to any location other than 4
+    fprintf(robot,'MTP B'); % this is the station that allows us to go to 4 since we have to match the square with red to 4
+    pause(6);
+
+    fprintf(robot, 'MVR Z,2000');% this is to lift up the pen so that the robot is not drawing anymore
+    pause(6);
+    fprintf(robot,'MTP a'); % go to the station that we saved before so that we can resume scanning from there
+    pause(6);
 
 end
 
 if (color_matrix(2,1)==2) % if green color is detected
     
-    % set the current ocation as a station 
-    fprintf(robot, 'NTC a');
+    % set the current location as a station so that we can come back to it after drawing when we want to resume scanning 
+    fprintf(robot, 'NTC a');% this command is used to start teaching a station named 'a'
     pause(1);
-    fprintf(robot, 'ENT 1');
+    fprintf(robot, 'ENT 1'); % a part of teaching routine
     pause(1);
-    fprintf(robot, 'SAV');
+    fprintf(robot, 'SAV'); % save the station to not volatile memory
     pause(1); 
     % move up to avoid clearance issues 
     fprintf(robot, 'MVR Z,1000');
-    % this function gets the robot into a position from which it can draw
     wait_for_robot(robot); 
+
+    % this function gets the robot into a position from which it can draw
     goto_drawing_stage(robot);
 
-    fprintf(robot,'MTP b'); % this is the station that allows us to go to E
+    % change this if you want to match the green squares to any location other than E
+    fprintf(robot,'MTP b'); % this is the station that allows us to go to E since we have to match the square with green to E
     pause(6);
-    fprintf(robot, 'MVR Z,2000');
+
+    fprintf(robot, 'MVR Z,2000');% this is to lift up the pen so that the robot is not drawing anymore
     pause(6);
-    fprintf(robot,'MTP a');
+    fprintf(robot,'MTP a'); % go to the station that we saved before so that we can resume scanning from there
     pause(6);
 end
+
+%_____________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%_____________________________________________________________________________________________________________________________________________________
+
 
 fprintf(robot, 'MVA X,%d',c1(4));
 pause(0.3);
@@ -319,11 +369,16 @@ waitReceive(c2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',c3(1));
 pause(0.3);
 waitReceive(c3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,3)=temp(2)-48;
+
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',c4(1));
 pause(0.3);
@@ -331,6 +386,7 @@ waitReceive(c4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,4)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',c5(1));
 pause(0.3);
@@ -338,6 +394,7 @@ waitReceive(c5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',c6(1));
 pause(0.3);
@@ -357,11 +414,15 @@ waitReceive(d7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,7)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',d6(1));
 pause(0.3);
 waitReceive(d6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',d5(1));
 pause(0.3);
@@ -369,11 +430,15 @@ waitReceive(d5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',d4(1));
 pause(0.3);
 waitReceive(d4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,4)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',d3(1));
 pause(0.3);
@@ -381,12 +446,15 @@ waitReceive(d3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,3)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',d2(1));
 pause(0.3);
 waitReceive(d2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',d1(1));
 pause(0.3);
@@ -394,6 +462,7 @@ waitReceive(d1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,1)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVR X,900');
 pause(0.3);
@@ -401,6 +470,7 @@ waitReceive(e1,robot)
 temp = get_color_from_arduino(arduino);
 color_matrix(5,1)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',e2(1));
 pause(0.3);
@@ -408,11 +478,15 @@ waitReceive(e2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',e3(1));
 pause(0.3);
 waitReceive(e3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,3)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',e4(1));
 pause(0.3);
@@ -420,6 +494,7 @@ waitReceive(e4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,4)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',e5(1));
 pause(0.3);
@@ -427,12 +502,15 @@ waitReceive(e5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',e6(1));
 pause(0.3);
 waitReceive(e6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',e7(1));
 pause(0.3);
@@ -449,11 +527,15 @@ waitReceive(f7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,7)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',f6(1));
 pause(0.3);
 waitReceive(f6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',f5(1));
 pause(0.3);
@@ -461,11 +543,15 @@ waitReceive(f5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',f4(1));
 pause(0.3);
 waitReceive(f4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,4)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',f3(1));
 pause(0.3);
@@ -473,12 +559,15 @@ waitReceive(f3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,3)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',f2(1));
 pause(0.3);
 waitReceive(f2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',f1(1));
 pause(0.3);
@@ -502,11 +591,15 @@ waitReceive(g2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',g3(1));
 pause(0.3);
 waitReceive(g3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,3)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',g4(1));
 pause(0.3);
@@ -514,6 +607,7 @@ waitReceive(g4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,4)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',g5(1));
 pause(0.3);
@@ -521,12 +615,15 @@ waitReceive(g5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',g6(1));
 pause(0.3);
 waitReceive(g6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',g7(1));
 pause(0.3);
@@ -545,11 +642,15 @@ waitReceive(h7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,7)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',h6(1));
 pause(0.3);
 waitReceive(h6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',h5(1));
 pause(0.3);
@@ -557,11 +658,15 @@ waitReceive(h5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',h4(1));
 pause(0.3);
 waitReceive(h4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,4)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',h3(1));
 pause(0.3);
@@ -569,19 +674,21 @@ waitReceive(h3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,3)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',h2(1));
 pause(0.3);
 waitReceive(h2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',h1(1));
 pause(0.3);
 waitReceive(h1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,1)=temp(2)-48;
-
 
 %_____________________________________________________________________________________________________________________________________________
 
@@ -600,11 +707,15 @@ waitReceive(i2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,2)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
+
 fprintf(robot, 'MVA T,%d',i3(1));
 pause(0.3);
 waitReceive(i3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,3)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',i4(1));
 pause(0.3);
@@ -612,6 +723,7 @@ waitReceive(i4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,4)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',i5(1));
 pause(0.3);
@@ -619,12 +731,15 @@ waitReceive(i5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,5)=temp(2)-48;
 
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',i6(1));
 pause(0.3);
 waitReceive(i6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,6)=temp(2)-48;
+
+%_____________________________________________________________________________________________________________________________________________________
 
 fprintf(robot, 'MVA T,%d',i7(1));
 pause(0.3);
