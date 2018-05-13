@@ -10,8 +10,8 @@ if ~isempty(instrfind)%if all serial port objects are NOT empty
 end
 
 %% Open new serial object for the robot
-robot = serial('COM4','BaudRate',9600);%Declare serial object for communicating with gencobot
-arduino = serial ('COM5', 'Baudrate', 9600); %% Declare serial object for communicating with arduino
+robot = serial('/dev/cu.usbserial','BaudRate',9600);% this was com 4 Declare serial object for communicating with gencobot
+arduino = serial ('/dev/cu.wchusbserial1410', 'Baudrate', 9600); %% this was com 5 Declare serial object for communicating with arduino
 fopen(robot);%Open serial port for gencobot
 fopen(arduino); %Open serial port for arduino
 pause(2); % wait for 2 seconds
@@ -259,7 +259,7 @@ color_matrix(2,2)=temp(2)-48;
 
 
 
-
+%{ uncomment this
 
 
 
@@ -333,11 +333,66 @@ end
 
 
 
+%}
 
 
 
 
 
+
+
+
+
+
+%#######################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%_____________________________________________________________________________________________________________________________________________________
+
+
+
+
+% the Drawing portion is implemented in the following square only
+
+
+
+fprintf(robot, 'MVA T,%d',b1(1));
+pause(0.3);
+waitReceive(b1,robot);
+temp = get_color_from_arduino(arduino);
+color_matrix(2,1)=temp(2)-48;
+take_color_and_draw(color_matrix(2,1));
+%_____________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%###########################################################################
 
 
 
