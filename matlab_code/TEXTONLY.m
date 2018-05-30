@@ -13,7 +13,7 @@ end
 
 
 %% Open new serial object for the robot
-robot = serial('COM3','BaudRate',9600);%Declare serial object for communicating with gencobot
+robot = serial('COM4','BaudRate',9600);%Declare serial object for communicating with gencobot
 fopen(robot);%Open serial port for gencobot
 pause(2); % wait for 2 seconds
 
@@ -24,18 +24,18 @@ pause(0.3);
 
 
 
-fprintf(robot,'SSP T,20000');
+fprintf(robot,'SSP T,9000');
 pause(0.3);
-fprintf(robot,'SSP X,20000');
+fprintf(robot,'SSP X,9000');
 pause(0.3);
 
 
 
 
-%Homing the robot
-fprintf(robot,'HOM');
-pause(0.3);
-wait_for_robot(robot);
+% Homing the robot
+%fprintf(robot,'HOM');
+%pause(0.3);
+%wait_for_robot(robot);
 
 
 
@@ -47,32 +47,68 @@ wait_for_robot(robot);
 % moving through the stations
 
 %______________________________________SQUARE_____________________________________________
-fprintf(robot, 'MTP p');
-pause(2);
+fprintf(robot, 'MTP R');
+pause(3);
 
-fprintf(robot, 'MTP P');
-pause(2);
+fprintf(robot, 'MTP r');
+pause(3);
 
-fprintf(robot, 'MTP p');
-pause(2);
+fprintf(robot, 'MTP S');
+pause(3);
 
-fprintf(robot, 'MTP Q');
-pause(2);
+fprintf(robot, 'MTP s');
+pause(3);
 
-fprintf(robot, 'MTP q');
-pause(2);
+fprintf(robot, 'MTP T');
+pause(3);
 
-fprintf(robot, 'MTP P');
-pause(2);
+fprintf(robot, 'MTP t');
+pause(3);
 
-fprintf(robot, 'MTP p');
-pause(2);
+fprintf(robot, 'MTP U');
+pause(3);
+
+fprintf(robot, 'MTP t');
+pause(3);
+
+fprintf(robot, 'MTP u');
+pause(3);
+
+fprintf(robot, 'MTP V');
+pause(3);
+
+fprintf(robot, 'MTP v');
+pause(3);
+
+fprintf(robot, 'MTP W');
+pause(3);
+
+fprintf(robot, 'MTP w');
+pause(3);
+
+fprintf(robot, 'MTP X');
+pause(3);
+
+fprintf(robot, 'MTP x');
+pause(3);
+
+fprintf(robot, 'MTP Y');
+pause(3);
+
+fprintf(robot, 'MTP x');
+pause(3);
+
+fprintf(robot, 'MTP y');
+pause(3);
+
+fprintf(robot, 'MTP Z');
+pause(3);
 
 fprintf(robot, 'SVF');
-pause(2);
+pause(3);
 
-fprintf(robot, 'MTP P');
-pause(2);
+fprintf(robot, 'MTP Z');
+pause(3);
 
 
 if ~isempty(instrfind)%if all serial port objects are NOT empty 
@@ -80,4 +116,3 @@ if ~isempty(instrfind)%if all serial port objects are NOT empty
     delete(instrfind);%Delete all serial port objects
     clear s;
 end
-
