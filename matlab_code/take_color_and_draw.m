@@ -1,4 +1,4 @@
-function take_color_and_draw(a)
+function take_color_and_draw(a,robot)
 
  % this function takes the color as an imput and then draws to the required destiniation
 

@@ -46,56 +46,33 @@ pause(0.3);
 
 % moving through the stations
 
-fprintf(robot, 'MTP D');
-pause(4);
-fprintf(robot, 'MTP E');
-pause(4);
-
-fprintf(robot, 'MTP F');
-pause(4);
-
-fprintf(robot, 'MTP D');
-pause(4);
-
-fprintf(robot, 'MTP G');
-pause(4);
-
-fprintf(robot, 'MTP H');
-pause(4);
-
-fprintf(robot, 'MTP I');
-pause(4);
-
-fprintf(robot, 'MTP J');
-pause(4);
-
-fprintf(robot, 'MTP K');
-pause(4);
-
-fprintf(robot, 'MTP L');
-pause(4);
-
-fprintf(robot, 'MTP M');
-pause(4);
-
-fprintf(robot, 'MTP N');
-pause(4);
-
-fprintf(robot, 'MTP O');
-pause(4);
+%______________________________________SQUARE_____________________________________________
+fprintf(robot, 'MTP p');
+pause(3);
 
 fprintf(robot, 'MTP P');
-pause(4);
+pause(3);
 
+fprintf(robot, 'MTP p');
+pause(3);
 
+fprintf(robot, 'MTP Q');
+pause(3);
 
+fprintf(robot, 'MTP q');
+pause(3);
 
+fprintf(robot, 'MTP P');
+pause(3);
 
-
+fprintf(robot, 'MTP p');
+pause(3);
 
 fprintf(robot, 'SVF');
-pause(4);
+pause(3);
 
+fprintf(robot, 'MTP P');
+pause(3);
 
 
 if ~isempty(instrfind)%if all serial port objects are NOT empty 
@@ -103,6 +80,4 @@ if ~isempty(instrfind)%if all serial port objects are NOT empty
     delete(instrfind);%Delete all serial port objects
     clear s;
 end
-
-
 

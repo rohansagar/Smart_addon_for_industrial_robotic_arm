@@ -23,8 +23,8 @@ if ~isempty(instrfind)%if all serial port objects are NOT empty
 end
 
 %% Open new serial object for the robot
-robot = serial('/dev/cu.usbserial','BaudRate',9600);% this was com 4 Declare serial object for communicating with gencobot
-arduino = serial ('/dev/cu.wchusbserial1410', 'Baudrate', 9600); %% this was com 5 Declare serial object for communicating with arduino
+robot = serial('COM3','BaudRate',9600);% this was com 4 Declare serial object for communicating with gencobot
+arduino = serial ('COM4', 'Baudrate', 9600); %% this was com 5 Declare serial object for communicating with arduino
 fopen(robot);%Open serial port for gencobot
 fopen(arduino); %Open serial port for arduino
 pause(2); % wait for 2 seconds
@@ -84,7 +84,7 @@ b5=[-14408,-7053,2755,-13560,Z];
 b6=[-14048,-7053,2755,-13560,Z];
 b7=[-13688,-7053,2755,-13560,Z];
 
-c1=[-16107,-7053,2755,-12660,Z];
+c1=[-16107,-7053,2755,-12660,Z]; % all these were 660
 c2=[-15747,-7053,2755,-12660,Z];
 c3=[-15387,-7053,2755,-12660,Z];
 c4=[-15027,-7053,2755,-12660,Z];
@@ -141,7 +141,7 @@ i4=[-16490,-7053,2755,-7160,Z];
 i5=[-16130,-7053,2755,-7160,Z];
 i6=[-15770,-7053,2755,-7160,Z];
 i7=[-15410,-7053,2755,-7160,Z];
-%_____________________________________________________________________________________________________________________________________________________
+%____________________________________________________________________________________________________________________________________________________
 
 
 fprintf(robot, 'MVA Z,%d',a(4));
@@ -162,7 +162,7 @@ pause(0.3);
 waitReceive(a1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,1)=temp(1)-48;
-take_color_and_draw(color_matrix(1,1));
+take_color_and_draw(color_matrix(1,1),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
     
@@ -171,7 +171,7 @@ pause(0.3);
 waitReceive(a2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,2)=temp(2)-48;
-take_color_and_draw(color_matrix(1,2));
+take_color_and_draw(color_matrix(1,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -180,7 +180,7 @@ pause(0.3);
 waitReceive(a3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,3)=temp(2)-48;
-take_color_and_draw(color_matrix(1,3));
+take_color_and_draw(color_matrix(1,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -189,7 +189,7 @@ pause(0.3);
 waitReceive(a4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,4)=temp(2)-48;
-take_color_and_draw(color_matrix(1,4));
+take_color_and_draw(color_matrix(1,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -198,7 +198,7 @@ pause(0.3);
 waitReceive(a5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,5)=temp(2)-48;
-take_color_and_draw(color_matrix(1,5));
+take_color_and_draw(color_matrix(1,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -207,7 +207,7 @@ pause(0.3);
 waitReceive(a6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,6)=temp(2)-48;
-take_color_and_draw(color_matrix(1,6));
+take_color_and_draw(color_matrix(1,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -216,7 +216,7 @@ pause(0.3);
 waitReceive(a7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(1,7)=temp(2)-48;
-take_color_and_draw(color_matrix(1,7));
+take_color_and_draw(color_matrix(1,7),robot);
 
 %_________________________________________________________________________________________________________________________________________
 
@@ -225,7 +225,7 @@ pause(0.3);
 waitReceive(b7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,7)=temp(2)-48;
-take_color_and_draw(color_matrix(2,7));
+take_color_and_draw(color_matrix(2,7),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -234,7 +234,7 @@ pause(0.3);
 waitReceive(b6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,6)=temp(2)-48;
-take_color_and_draw(color_matrix(2,6));
+take_color_and_draw(color_matrix(2,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -243,7 +243,7 @@ pause(0.3);
 waitReceive(b5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,5)=temp(2)-48;
-take_color_and_draw(color_matrix(2,5));
+take_color_and_draw(color_matrix(2,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -252,7 +252,7 @@ pause(0.3);
 waitReceive(b4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,4)=temp(2)-48;
-take_color_and_draw(color_matrix(2,4));
+take_color_and_draw(color_matrix(2,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -261,7 +261,7 @@ pause(0.3);
 waitReceive(b3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,3)=temp(2)-48;
-take_color_and_draw(color_matrix(2,3));
+take_color_and_draw(color_matrix(2,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -270,7 +270,7 @@ pause(0.3);
 waitReceive(b2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,2)=temp(2)-48;
-take_color_and_draw(color_matrix(2,2));
+take_color_and_draw(color_matrix(2,2),robot);
 
 
 
@@ -286,7 +286,7 @@ take_color_and_draw(color_matrix(2,2));
 
 
 
-%{ uncomment this
+
 
 
 
@@ -298,7 +298,7 @@ take_color_and_draw(color_matrix(2,2));
 % the Drawing portion is implemented in the following square only
 
 
-
+%{
 fprintf(robot, 'MVA T,%d',b1(1));
 pause(0.3);
 waitReceive(b1,robot);
@@ -403,7 +403,7 @@ pause(0.3);
 waitReceive(b1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(2,1)=temp(2)-48;
-take_color_and_draw(color_matrix(2,1));
+take_color_and_draw(color_matrix(2,1),robot);
 %_____________________________________________________________________________________________________________________________________________________
 
 
@@ -442,7 +442,7 @@ pause(0.3);
 waitReceive(c1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,1)=temp(2)-48;
-take_color_and_draw(color_matrix(3,1));
+take_color_and_draw(color_matrix(3,1),robot);
 
 %____________________________________________________________________________________________________________________________________________________
 
@@ -451,7 +451,7 @@ pause(0.3);
 waitReceive(c2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,2)=temp(2)-48;
-take_color_and_draw(color_matrix(3,2));
+take_color_and_draw(color_matrix(3,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -460,7 +460,7 @@ pause(0.3);
 waitReceive(c3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,3)=temp(2)-48;
-take_color_and_draw(color_matrix(3,3));
+take_color_and_draw(color_matrix(3,3),robot);
 
 
 %_____________________________________________________________________________________________________________________________________________________
@@ -470,7 +470,7 @@ pause(0.3);
 waitReceive(c4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,4)=temp(2)-48;
-take_color_and_draw(color_matrix(3,4));
+take_color_and_draw(color_matrix(3,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -479,7 +479,7 @@ pause(0.3);
 waitReceive(c5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,5)=temp(2)-48;
-take_color_and_draw(color_matrix(3,5));
+take_color_and_draw(color_matrix(3,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -488,7 +488,7 @@ pause(0.3);
 waitReceive(c6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,6)=temp(2)-48;
-take_color_and_draw(color_matrix(3,6));
+take_color_and_draw(color_matrix(3,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -498,7 +498,7 @@ pause(0.3);
 waitReceive(c7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(3,7)=temp(2)-48;
-take_color_and_draw(color_matrix(3,7));
+take_color_and_draw(color_matrix(3,7),robot);
 
 %_________________________________________________________________________________________________________________________________
 fprintf(robot, 'MVA X,%d',d7(4));
@@ -506,7 +506,7 @@ pause(0.3);
 waitReceive(d7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,7)=temp(2)-48;
-take_color_and_draw(color_matrix(4,7));
+take_color_and_draw(color_matrix(4,7),robot);
 
 
 %_____________________________________________________________________________________________________________________________________________________
@@ -516,7 +516,7 @@ pause(0.3);
 waitReceive(d6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,6)=temp(2)-48;
-take_color_and_draw(color_matrix(4,6));
+take_color_and_draw(color_matrix(4,6),robot);
 
 
 %_____________________________________________________________________________________________________________________________________________________
@@ -526,7 +526,7 @@ pause(0.3);
 waitReceive(d5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,5)=temp(2)-48;
-take_color_and_draw(color_matrix(4,5));
+take_color_and_draw(color_matrix(4,5),robot);
 
 
 %_____________________________________________________________________________________________________________________________________________________
@@ -536,7 +536,7 @@ pause(0.3);
 waitReceive(d4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,4)=temp(2)-48;
-take_color_and_draw(color_matrix(4,4));
+take_color_and_draw(color_matrix(4,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -545,7 +545,7 @@ pause(0.3);
 waitReceive(d3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,3)=temp(2)-48;
-take_color_and_draw(color_matrix(4,3));
+take_color_and_draw(color_matrix(4,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -554,7 +554,7 @@ pause(0.3);
 waitReceive(d2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,2)=temp(2)-48;
-take_color_and_draw(color_matrix(4,2));
+take_color_and_draw(color_matrix(4,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -563,7 +563,7 @@ pause(0.3);
 waitReceive(d1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(4,1)=temp(2)-48;
-take_color_and_draw(color_matrix(4,1));
+take_color_and_draw(color_matrix(4,1),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -572,7 +572,7 @@ pause(0.3);
 waitReceive(e1,robot)
 temp = get_color_from_arduino(arduino);
 color_matrix(5,1)=temp(2)-48;
-take_color_and_draw(color_matrix(5,1));
+take_color_and_draw(color_matrix(5,1),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -581,7 +581,7 @@ pause(0.3);
 waitReceive(e2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,2)=temp(2)-48;
-take_color_and_draw(color_matrix(5,2));
+take_color_and_draw(color_matrix(5,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -590,7 +590,7 @@ pause(0.3);
 waitReceive(e3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,3)=temp(2)-48;
-take_color_and_draw(color_matrix(5,3));
+take_color_and_draw(color_matrix(5,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -599,7 +599,7 @@ pause(0.3);
 waitReceive(e4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,4)=temp(2)-48;
-take_color_and_draw(color_matrix(5,4));
+take_color_and_draw(color_matrix(5,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -608,7 +608,7 @@ pause(0.3);
 waitReceive(e5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,5)=temp(2)-48;
-take_color_and_draw(color_matrix(5,5));
+take_color_and_draw(color_matrix(5,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -617,7 +617,7 @@ pause(0.3);
 waitReceive(e6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,6)=temp(2)-48;
-take_color_and_draw(color_matrix(5,6));
+take_color_and_draw(color_matrix(5,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -626,7 +626,7 @@ pause(0.3);
 waitReceive(e7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(5,7)=temp(2)-48;
-take_color_and_draw(color_matrix(5,7));
+take_color_and_draw(color_matrix(5,7),robot);
 
 %_________________________________________________________________________________________________________________________
 
@@ -636,7 +636,7 @@ pause(0.3);
 waitReceive(f7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,7)=temp(2)-48;
-take_color_and_draw(color_matrix(6,7));
+take_color_and_draw(color_matrix(6,7),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -645,7 +645,7 @@ pause(0.3);
 waitReceive(f6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,6)=temp(2)-48;
-take_color_and_draw(color_matrix(6,6));
+take_color_and_draw(color_matrix(6,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -654,7 +654,7 @@ pause(0.3);
 waitReceive(f5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,5)=temp(2)-48;
-take_color_and_draw(color_matrix(6,5));
+take_color_and_draw(color_matrix(6,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -663,7 +663,7 @@ pause(0.3);
 waitReceive(f4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,4)=temp(2)-48;
-take_color_and_draw(color_matrix(6,4));
+take_color_and_draw(color_matrix(6,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -672,7 +672,7 @@ pause(0.3);
 waitReceive(f3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,3)=temp(2)-48;
-take_color_and_draw(color_matrix(6,3));
+take_color_and_draw(color_matrix(6,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -681,7 +681,7 @@ pause(0.3);
 waitReceive(f2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,2)=temp(2)-48;
-take_color_and_draw(color_matrix(6,2));
+take_color_and_draw(color_matrix(6,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -690,7 +690,7 @@ pause(0.3);
 waitReceive(f1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(6,1)=temp(2)-48;
-take_color_and_draw(color_matrix(6,1));
+take_color_and_draw(color_matrix(6,1),robot);
 
 %________________________________________________________________________________________________________________________________________
 
@@ -699,7 +699,7 @@ pause(0.3);
 waitReceive(g1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,1)=temp(2)-48;
-take_color_and_draw(color_matrix(7,1));
+take_color_and_draw(color_matrix(7,1),robot);
 
 %____________________________________________________________________________________________________________________________________________________
 
@@ -708,7 +708,7 @@ pause(0.3);
 waitReceive(g2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,2)=temp(2)-48;
-take_color_and_draw(color_matrix(7,2));
+take_color_and_draw(color_matrix(7,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -717,7 +717,7 @@ pause(0.3);
 waitReceive(g3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,3)=temp(2)-48;
-take_color_and_draw(color_matrix(7,3));
+take_color_and_draw(color_matrix(7,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -726,7 +726,7 @@ pause(0.3);
 waitReceive(g4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,4)=temp(2)-48;
-take_color_and_draw(color_matrix(7,4));
+take_color_and_draw(color_matrix(7,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -735,7 +735,7 @@ pause(0.3);
 waitReceive(g5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,5)=temp(2)-48;
-take_color_and_draw(color_matrix(7,5));
+take_color_and_draw(color_matrix(7,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -744,7 +744,7 @@ pause(0.3);
 waitReceive(g6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,6)=temp(2)-48;
-take_color_and_draw(color_matrix(7,6));
+take_color_and_draw(color_matrix(7,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -753,7 +753,7 @@ pause(0.3);
 waitReceive(g7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(7,7)=temp(2)-48;
-take_color_and_draw(color_matrix(7,7));
+take_color_and_draw(color_matrix(7,7),robot);
 
 
 %______________________________________________________________________________________________________________________________________________
@@ -765,7 +765,7 @@ pause(0.3);
 waitReceive(h7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,7)=temp(2)-48;
-take_color_and_draw(color_matrix(8,7));
+take_color_and_draw(color_matrix(8,7),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -774,7 +774,7 @@ pause(0.3);
 waitReceive(h6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,6)=temp(2)-48;
-take_color_and_draw(color_matrix(8,6));
+take_color_and_draw(color_matrix(8,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -783,7 +783,7 @@ pause(0.3);
 waitReceive(h5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,5)=temp(2)-48;
-take_color_and_draw(color_matrix(8,5));
+take_color_and_draw(color_matrix(8,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -792,7 +792,7 @@ pause(0.3);
 waitReceive(h4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,4)=temp(2)-48;
-take_color_and_draw(color_matrix(8,4));
+take_color_and_draw(color_matrix(8,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -801,7 +801,7 @@ pause(0.3);
 waitReceive(h3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,3)=temp(2)-48;
-take_color_and_draw(color_matrix(8,3));
+take_color_and_draw(color_matrix(8,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -810,7 +810,7 @@ pause(0.3);
 waitReceive(h2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,2)=temp(2)-48;
-take_color_and_draw(color_matrix(8,2));
+take_color_and_draw(color_matrix(8,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -819,7 +819,7 @@ pause(0.3);
 waitReceive(h1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(8,1)=temp(2)-48;
-take_color_and_draw(color_matrix(8,1));
+take_color_and_draw(color_matrix(8,1),robot);
 
 %_____________________________________________________________________________________________________________________________________________
 
@@ -829,7 +829,7 @@ pause(0.3);
 waitReceive(i1,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,1)=temp(2)-48;
-take_color_and_draw(color_matrix(9,1));
+take_color_and_draw(color_matrix(9,1),robot);
 
 %____________________________________________________________________________________________________________________________________________________
 
@@ -838,7 +838,7 @@ pause(0.3);
 waitReceive(i2,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,2)=temp(2)-48;
-take_color_and_draw(color_matrix(9,2));
+take_color_and_draw(color_matrix(9,2),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -847,7 +847,7 @@ pause(0.3);
 waitReceive(i3,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,3)=temp(2)-48;
-take_color_and_draw(color_matrix(9,3));
+take_color_and_draw(color_matrix(9,3),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -856,7 +856,7 @@ pause(0.3);
 waitReceive(i4,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,4)=temp(2)-48;
-take_color_and_draw(color_matrix(9,4));
+take_color_and_draw(color_matrix(9,4),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -865,7 +865,7 @@ pause(0.3);
 waitReceive(i5,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,5)=temp(2)-48;
-take_color_and_draw(color_matrix(9,5));
+take_color_and_draw(color_matrix(9,5),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -874,7 +874,7 @@ pause(0.3);
 waitReceive(i6,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,6)=temp(2)-48;
-take_color_and_draw(color_matrix(9,6));
+take_color_and_draw(color_matrix(9,6),robot);
 
 %_____________________________________________________________________________________________________________________________________________________
 
@@ -883,7 +883,7 @@ pause(0.3);
 waitReceive(i7,robot);
 temp = get_color_from_arduino(arduino);
 color_matrix(9,7)=temp(2)-48;
-take_color_and_draw(color_matrix(9,7));
+take_color_and_draw(color_matrix(9,7),robot);
 
 % have a loop for one dimension
 % have another for loop for the other dimension
