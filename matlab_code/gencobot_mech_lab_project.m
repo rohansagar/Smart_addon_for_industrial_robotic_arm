@@ -1,5 +1,18 @@
+%{
+
+    Gencobot Scanning routine
+    Author: Rohan Sagar
+    Date: 4-10-18
+
+    This code is used to make the gencobot addon device scan a page for colors
+    and then draw lines based in the colors on the page    
+
+
+%}
+
 %% If a serial object is currently open, close it
-clc;
+
+clc; 
 clear all;
 close all;
 
@@ -24,7 +37,7 @@ fprintf(robot,'SVN');
 pause(0.3);
 
 
-
+% set speeds for all the axes.
 fprintf(robot,'SSP T,9000');
 pause(0.3);
 fprintf(robot,'SSP X,9000');
@@ -51,6 +64,7 @@ wait_for_robot(robot);
 Z=1550;
 
 
+% below are the co ordinates of all the squares
 
 a1=[-15580,-7053,2755,-14460,Z];
 a2=[-15220,-7053,2755,-14460,Z];
