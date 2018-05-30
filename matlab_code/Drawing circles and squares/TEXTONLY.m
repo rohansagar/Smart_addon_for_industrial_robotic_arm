@@ -13,7 +13,7 @@ end
 
 
 %% Open new serial object for the robot
-robot = serial('COM3','BaudRate',9600);%Declare serial object for communicating with gencobot
+robot = serial('COM4','BaudRate',9600);%Declare serial object for communicating with gencobot
 fopen(robot);%Open serial port for gencobot
 pause(2); % wait for 2 seconds
 
