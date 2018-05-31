@@ -10,17 +10,12 @@
 
 %}
 
-%% If a serial object is currently open, close it
 
 clc; 
 clear all;
 close all;
-
-if ~isempty(instrfind)%if all serial port objects are NOT empty 
-    fclose(instrfind);%Close all serial port objects
-    delete(instrfind);%Delete all serial port objects
-    clear s;
-end
+%% If a serial object is currently open, close it
+close_serial_ports();
 
 %% Open new serial object for the robot
 robot = serial('COM3','BaudRate',9600);% this was com 4 Declare serial object for communicating with gencobot
@@ -33,27 +28,27 @@ set(arduino,'Terminator','CR')
 color_matrix=zeros(9,7);
 
 %%First switch on the robot
-fprintf(robot,'SVN');
+fprintf(robot,'SVN'); % SVN is the command to switch on the servos of the robot
 pause(0.3);
 
 
 % set speeds for all the axes.
-fprintf(robot,'SSP T,9000');
+fprintf(robot,'SSP T,9000'); % setting the speed of the robot along T axis to 9000
 pause(0.3);
-fprintf(robot,'SSP X,9000');
+fprintf(robot,'SSP X,9000'); % setting the speed of the robot along X axis to 9000
 pause(0.3);
-fprintf(robot,'SSP R,9000');
+fprintf(robot,'SSP R,9000'); % setting the speed of the robot along R axis to 9000
 pause(0.3);
-fprintf(robot,'SSP R2,9000');
+fprintf(robot,'SSP R2,9000'); % setting the speed of the robot along R2 axis to 9000
 pause(0.3);
-fprintf(robot,'SSP Z,9000');
+fprintf(robot,'SSP Z,9000'); % setting the speed of the robot along Z axis to 9000
 pause(0.3);
 
 
 
 
 %{
-% Homing the robot
+% Homing the robot (this is optional use this only if the robot is just switched on)
 fprintf(robot,'HOM');
 pause(0.3);
 wait_for_robot(robot);
@@ -84,7 +79,7 @@ b5=[-14408,-7053,2755,-13560,Z];
 b6=[-14048,-7053,2755,-13560,Z];
 b7=[-13688,-7053,2755,-13560,Z];
 
-c1=[-16107,-7053,2755,-12660,Z]; % all these were 660
+c1=[-16107,-7053,2755,-12660,Z]; 
 c2=[-15747,-7053,2755,-12660,Z];
 c3=[-15387,-7053,2755,-12660,Z];
 c4=[-15027,-7053,2755,-12660,Z];
