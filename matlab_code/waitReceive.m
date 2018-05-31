@@ -1,3 +1,12 @@
+%{
+    waitReceive.m
+    Author: Tim Mitchel
+    This function is used to wait for the robot to execute certain tasks based on positional 
+    feedback
+    It constantly checks for the current position of the robot and if it is not the desired
+    position it waits until it is.    
+
+%}
 function currentPosition = waitReceive(desiredPos,s)%Names of the axes
 
 % USED IN CONJUNCTION WITH "BRL_STATIONS_01.m"

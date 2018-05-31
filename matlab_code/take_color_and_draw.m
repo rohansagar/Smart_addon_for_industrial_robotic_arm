@@ -1,3 +1,10 @@
+%{
+	take_color_and_draw.m
+	Author: Rohan Sagar
+	This function takes the color and robot's serial object as arguments and draws the lines
+	from the square to designated location which is already set as a station	
+%}
+
 function take_color_and_draw(a,robot)
 
  % this function takes the color as an imput and then draws to the required destiniation

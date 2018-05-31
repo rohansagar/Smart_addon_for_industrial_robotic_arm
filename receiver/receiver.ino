@@ -2,13 +2,15 @@
 
 
 /* 
- This code is to receive the data over a software serial port and then echo it to arduino on-board serial
- We use it to receive the data that is being sent from a slave device connected to the arm sensing color 
- and sending it to the master device (this device). This device is again connected to the computer runing 
- matlab
+receiver.ino
+Author: Rohan Sagar
+This code is to receive the data over a software serial port and then echo it to arduino on-board serial
+We use it to receive the data that is being sent from a slave device connected to the arm sensing color 
+and sending it to the master device (this device). This device is again connected to the computer runing 
+matlab
 */
 
-#include <SoftwareSerial.h>
+#include <SoftwareSerial.h> // including software serial library
 
 SoftwareSerial bt_master_serial(10, 11); // initializing the software serial to digital pins 10(rx) and 11(tx)
 void setup() 

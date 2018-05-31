@@ -1,4 +1,6 @@
 /*
+gencobot_addon_device.ino
+Author: Rohan Sagar
 This device is used as an attachment to the gencobot robotic arm to allow
 it to recognize colors and send it to a computer for use in additional applicaions
 
@@ -8,9 +10,9 @@ computer program. It essentially acts as the communication link between the comp
 and the sensor
 */
 
-#include <Wire.h>
-#include "Adafruit_TCS34725.h"
-#include <SoftwareSerial.h>
+#include <Wire.h> // including I2C library
+#include "Adafruit_TCS34725.h" // including the adafruit color sensor library
+#include <SoftwareSerial.h> // including the software serial library
 
 SoftwareSerial btserial(10, 11); // RX, TX
 
