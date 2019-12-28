@@ -1,4 +1,4 @@
-# gencobot_addon_device
+# Smart addon for industrial robotic arm
 
 [Link to video of the presentation about the project](https://youtu.be/1iEqpP3eKu0)
 
